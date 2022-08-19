@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title='Generate secret string'>
+  <main class='m-auto flex flex-col w-full gap-6 h-screen justify-center items-center'>
+    <button id='new-string-btn' class="rounded-md px-6 py-3 bg-indigo-dye text-gainsboro">New string</button>
+    <div class='p-2 flex gap-4 items-center rounded-md bg-indigo-dye shadow-xl'>
+      <code id='generated-string' class='text-gainsboro'></code>
+      <button
+        id='copy-btn'
+        class='px-6 py-3 text-apricot bg-gainsboro hover:bg-gainsboro/75 transition-colors rounded-md'
+        >Copy
+      </button>
+    </div>
+    <div id='copy-success' class='mt-2 opacity-0 text-apricot duration-500 transition-opacity'>Copied!</div>
+  </main>
+</Layout>
+
+<script defer>
+  const generateString = (length) => {
+    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let result = ''
+    for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)]
+    return result
+  }
+  const generatedString = document.getElementById('generated-string')
+  generatedString.innerText = generateString(32)
+
+  const newStringBtn = document.getElementById('new-string-btn')
+  const copyBtn = document.getElementById('copy-btn')
+  const copySuccess = document.getElementById('copy-success')
+
+  const newString = () => {
+    const newValue = generateString(32)
+    generatedString.innerText = newValue
+    return newValue
+  }
+
+  newStringBtn.addEventListener('click', newString)
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(generatedString.innerText)
+    copySuccess.classList.add('opacity-1') // for safari
+    copySuccess.style.opacity = 1 // for firefox/chrome
+		setTimeout(() => {
+			copySuccess.classList.remove('opacity-1')
+			copySuccess.style.opacity = 0
+		}, 1500)
+  })
+</script>
