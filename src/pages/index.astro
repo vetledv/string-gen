@@ -5,30 +5,32 @@ import CopyIcon from '../components/copy-icon.astro'
 ---
 
 <Layout title='Generate secret string'>
-  <main class='flex flex-col w-full h-screen justify-between items-center text-gainsboro'>
+  <main class='flex flex-col w-full p-4 h-screen justify-between items-center text-gainsboro'>
     <div></div>
-    <div class='w-full min-w-fit relative max-w-md flex flex-col gap-4'>
+    <div class='w-full min-w-fit relative max-w-md flex flex-col items-center gap-4'>
       <h1 class='text-xl'>Click to copy secret! And shh, keep it safe 🤫</h1>
-      <div class='flex flex-wrap gap-3 relative w-full'>
-        <button
-          id='new-string-btn'
-          class='group w-fit rounded-md p-3 bg-ming shadow-xl hover:bg-[#487B84] transition-colors'>
-          <div
-            class='group-hover:text-white transition-colors group-focus:animate-[spin_600ms_ease] group-active:animate-none'>
-            <RefreshIcon />
-          </div>
-        </button>
+      <div class='flex flex-col gap-3 relative w-full'>
         <span
           id='copy-btn'
-          class='group w-[24rem] min-w-fit p-2 flex gap-2 cursor-pointer items-center justify-between rounded-md bg-ming hover:bg-[#487B84] shadow-xl transition-colors'>
+          class='group w-full p-3 flex gap-2 cursor-pointer rounded-md bg-ming hover:bg-[#487B84] shadow-xl transition-colors'>
           <div class='w-full flex justify-center'><span id='generated-string' class='text-white'></span></div>
           <span class='px-1'><CopyIcon /></span>
         </span>
+        <div class='flex justify-end'>
+          <button
+            id='new-string-btn'
+            class='group w-fit rounded-md p-3 bg-ming shadow-xl hover:bg-[#487B84] transition-colors'>
+            <div
+              class='group-hover:text-white transition-colors group-focus:animate-[spin_600ms_ease] group-active:animate-none'>
+              <RefreshIcon />
+            </div>
+          </button>
+        </div>
       </div>
       <div id='copy-success' class='text-center opacity-0 duration-300 transition-opacity'>Copied!</div>
     </div>
 
-    <div class='p-12 mx-3 text-white/60 border-t border-white/25'>
+    <div class='p-12 text-white/60 border-t border-white/25'>
       <p class='max-w-sm'>
         Made with <a href='https://astro.build/' target='_blank' class='text-white'>Astro</a> and hosted on <a
           href='https://vercel.com/'
@@ -47,7 +49,7 @@ import CopyIcon from '../components/copy-icon.astro'
 </Layout>
 
 <script defer>
-	//try using @astrojs/react?
+  //try using @astrojs/react?
   const generateString = (length) => {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     let result = ''
