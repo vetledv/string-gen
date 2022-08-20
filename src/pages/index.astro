@@ -1,19 +1,50 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import RefreshIcon from '../components/refresh-icon.astro'
+import CopyIcon from '../components/copy-icon.astro'
 ---
 
 <Layout title='Generate secret string'>
-  <main class='m-auto flex flex-col w-full gap-6 h-screen justify-center items-center'>
-    <button id='new-string-btn' class="rounded-md px-6 py-3 bg-indigo-dye text-gainsboro">New string</button>
-    <div class='p-2 flex gap-4 items-center rounded-md bg-indigo-dye shadow-xl'>
-      <code id='generated-string' class='text-gainsboro'></code>
-      <button
-        id='copy-btn'
-        class='px-6 py-3 text-apricot bg-gainsboro hover:bg-gainsboro/75 transition-colors rounded-md'
-        >Copy
-      </button>
+  <main class='flex flex-col w-full h-screen justify-between items-center text-gainsboro'>
+    <div></div>
+    <div class='w-full relative max-w-md flex flex-col gap-4'>
+      <h1 class='text-xl'>Click to copy secret! And shh, keep it safe 🤫</h1>
+      <div class='flex flex-wrap gap-3 relative w-[28rem]'>
+        <button
+          id='new-string-btn'
+          class='group rounded-md p-3 w-fit bg-ming shadow-xl hover:bg-[#487B84] transition-colors'>
+          <div
+            class='group-hover:text-white transition-colors group-focus:animate-[spin_600ms_ease] group-active:animate-none'>
+            <RefreshIcon />
+          </div>
+        </button>
+        <span
+          id='copy-btn'
+          class='group w-full p-2 flex gap-2 cursor-pointer items-center justify-between rounded-md bg-ming hover:bg-[#487B84] shadow-xl transition-colors'>
+          <span id='generated-string' class='text-white'></span>
+          <span class='p-3 bg-gainsboro/20 group-hover:bg-gainsboro/30 transition-colors rounded-md'
+            ><CopyIcon class='bg-white' />
+          </span>
+        </span>
+      </div>
+      <div id='copy-success' class='opacity-0 duration-300 transition-opacity text-center'>Copied!</div>
     </div>
-    <div id='copy-success' class='mt-2 opacity-0 text-apricot duration-500 transition-opacity'>Copied!</div>
+
+    <div class='p-12 mx-3 text-white/60 border-t border-white/25'>
+      <p class="max-w-sm">
+        Made with <a href='https://astro.build/' target='_blank' class='text-white'>Astro</a> and hosted on <a
+          href='https://vercel.com/'
+          target='_blank'
+          class='text-white'
+          >Vercel
+        </a>. Source code can be found on <a
+          href='https://github.com/vetledv/string-gen'
+          target='_blank'
+          class='text-white font'
+          >Github
+        </a>.
+      </p>
+    </div>
   </main>
 </Layout>
 
@@ -42,9 +73,9 @@ import Layout from '../layouts/Layout.astro'
     navigator.clipboard.writeText(generatedString.innerText)
     copySuccess.classList.add('opacity-1') // for safari
     copySuccess.style.opacity = 1 // for firefox/chrome
-		setTimeout(() => {
-			copySuccess.classList.remove('opacity-1')
-			copySuccess.style.opacity = 0
-		}, 1500)
+    setTimeout(() => {
+      copySuccess.classList.remove('opacity-1')
+      copySuccess.style.opacity = 0
+    }, 1500)
   })
 </script>
